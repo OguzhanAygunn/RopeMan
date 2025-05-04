@@ -1,0 +1,7 @@
+Inside the FImpossible Creations/Shared Tools, are contained editor helper development scripts.
+There are scripts for helper icons for custom inspector and editor windows.
+Scripts for drawing extra editor gizmos.
+Scripts for drawing extra editor handles.
+Utilities for scene view.
+Utilities for project search.
+Custom Property Drawers.

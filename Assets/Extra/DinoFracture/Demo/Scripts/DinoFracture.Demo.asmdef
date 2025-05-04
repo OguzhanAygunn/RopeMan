@@ -1,0 +1,14 @@
+{
+    "name": "DinoFracture.Demo",
+    "references": [
+        "DinoFracture.Scripts"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4a8bc3343c1f3418ec3576fe652672, type: 3}
+  m_Name: GluedEdges
+  m_EditorClassIdentifier: 
+  Title: Glued Edges
+  Description: 'The fracture template has "GlueEdgeOnFracture" component added. This
+    addition makes any pieces touching the frame of the window become frozen in place.
+
+
+    The pieces that make up the window frame have a collider with a specific tag that
+    the glue component looks for. Here, the ''Player'' tag can be used, but any tag
+    will work.'
+  Scripts:
+  - {fileID: 11400000, guid: 466cd2689c868eb4ab14df99e87b514c, type: 2}
+  - {fileID: 11400000, guid: 01e21e51c6d6aae45983740f8d6cc87b, type: 2}
+  - {fileID: 11400000, guid: a0786ebaa3d3b7849a32da5926930f9c, type: 2}
+  - {fileID: 11400000, guid: 9c20bad5a44335447b410151f26945b6, type: 2}

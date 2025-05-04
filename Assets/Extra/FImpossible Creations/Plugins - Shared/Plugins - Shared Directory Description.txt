@@ -1,0 +1,5 @@
+Inside the FImpossible Creations/Plugins - Shared, are contained scripts which are helpful for playmode use.
+It contains APIs for various use cases.
+Base classes for Fimpossible Creations components.
+Math calculations helpers.
+Procedural Animating APIs and Utilities.

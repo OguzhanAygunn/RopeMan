@@ -1,0 +1,961 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DinoFracture</name>
+    </assembly>
+    <members>
+        <member name="F:DinoFracture.DynamicArray`1.cReleaseMemoryOnClearItemThreshold">
+            <summary>
+            If we have more than this many items when cleared,
+            we will free the memory instead of holding on to it.
+            
+            This should reduce some memory pressure on the system
+            when fracturing big meshes and when we care less about
+            invoking the GC.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.DynamicArray`1.RemoveRangeFast(System.Int32,System.Int32)">
+            <summary>
+            Reorders elements by swapping with last elements.
+            </summary>
+            <remarks>
+            Order is kept with respect to count when swapping with the end.
+            </remarks>
+            <param name="idx"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:DinoFracture.DynamicArray`1.UpdateData(System.Collections.Generic.IList{`0})">
+            <summary>
+            Replaces our data with new data.  The count must be the same.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:DinoFracture.DynamicArray`1.UpdateData(`0[])">
+            <summary>
+            Replaces our data with new data.  The count must be the same.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:DinoFracture.DebugGameObject.GetGameObject(System.String)">
+            <summary>
+            Must be called on main Unity thread
+            </summary>
+        </member>
+        <member name="T:DinoFracture.FractureUVScale">
+            <summary>
+            Algorithm used to generate UVs on inside faces
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureUVScale.EntireMesh">
+            <summary>
+            The fracture UVs map to the size of the original mesh.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureUVScale.Piece">
+            <summary>
+            The fracture UVs map to the size of each individual piece.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.FractureIssueResolution">
+            <summary>
+            Technique used to handle pieces that generated with potential issues.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureIssueResolution.NoAction">
+            <summary>
+            Do nothing internally - let the user take action
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureIssueResolution.DisableGameObject">
+            <summary>
+            Completely disable the game object
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureIssueResolution.ReplaceMeshCollider">
+            <summary>
+            Replaces the mesh collider with a sphere collider if
+            the mesh collider could potentially fail to generate.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.MeshValidity">
+            <summary>
+            Denotes the state of the mesh's topology and readiness to be fractured.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshValidity.Unknown">
+            <summary>
+            Meshes should only be in this state when the fracture script is
+            first created and has yet to be clicked on in the editor.
+            
+            The mesh will be first checked and cleaned before fracturing.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshValidity.Valid">
+            <summary>
+            The mesh is known to be valid and no checks or cleaning will be performed.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshValidity.NeedsCleaning">
+            <summary>
+            The mesh is known to be invalid for fracturing. The mesh will be
+            cleaned internally before starting the fracture.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshValidity.Unrecoverable">
+            <summary>
+            The mesh is beyond what can be done through automatic cleaning.
+            
+            Fracturing can still happen, but there is a high chance that random
+            slices will result in a failed fracture.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.MeshTopologyError">
+            <summary>
+            Returns a list of errors in the mesh's topology.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshTopologyError.None">
+            <summary>
+            No errors. Mesh is valid.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshTopologyError.DegenerateTriangles">
+            <summary>
+            The mesh has zero-area triangles (either 3 vertices in a line or collapsed to a single point)
+            
+            This can be caused by poor export from DCC tools or by Unity doing a bad triangulation
+            job importing NGons from an FBX.
+            
+            Degenerate triangles can be fixed through automatic mesh cleaning.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshTopologyError.OpenFaces">
+            <summary>
+            The mesh is not water-tight. Mathematically, this means there is at least one edge that
+            has exactly one associated triangle. Normal edges are shared by exactly 2 triangles.
+            
+            Open faces can be fixed through automatic mesh cleaning as long as there are
+            at 3 connected open edges that all belong a single plane. Multiple groups of open faces
+            can be fixed for a single mesh.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshTopologyError.CloseVertices">
+            <summary>
+            The mesh has vertices that are extremely close, but not exactly on the same position.
+            These vertices will be merged before during the cleaning process.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.MeshTopologyError.FanFaces">
+            <summary>
+            An edge is being shared by 3 or more triangles. It is no longer possible to determine what is
+            inside vs outside of the mesh.
+            
+            This type of error cannot be fixed automatically.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.EdgeError">
+            <summary>
+            Used to display geometry errors on the mesh in the editor
+            </summary>
+        </member>
+        <member name="F:DinoFracture.EdgeError.V0">
+            <summary>
+            First edge vertex, in object space
+            </summary>
+        </member>
+        <member name="F:DinoFracture.EdgeError.V1">
+            <summary>
+            Second edge vertex, in object space
+            </summary>
+        </member>
+        <member name="F:DinoFracture.EdgeError.Errors">
+            <summary>
+            Error(s) associated with this edge. Useful for coloring the edges.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.EdgeError.GameObject">
+            <summary>
+            The game object associated with the errors
+            </summary>
+        </member>
+        <member name="T:DinoFracture.SlicePlane">
+            <summary>
+            Defines a plane that slices the mesh in half.
+            </summary>
+            <remarks>
+            Values are in the mesh's local space.
+            </remarks>
+        </member>
+        <member name="F:DinoFracture.SlicePlane.Identity">
+            <summary>
+            Default, "identity" plane
+            </summary>
+        </member>
+        <member name="F:DinoFracture.SlicePlane.Position">
+            <summary>
+            Local space position of the plane
+            </summary>
+        </member>
+        <member name="F:DinoFracture.SlicePlane.Rotation">
+            <summary>
+            Local space rotation of the plane.
+            </summary>
+            <remarks>
+            Z dir is the plane's normal.
+            </remarks>
+        </member>
+        <member name="F:DinoFracture.SlicePlane.Scale">
+            <summary>
+            Scale of the plane.
+            </summary>
+            <remarks>
+            This is only used to display it in the editor.
+            When slicing, the plane will be treated as infinite in size.
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.SlicePlane.ToPlane">
+            <summary>
+            Converts this object to a Unity plane.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.UVBounds">
+            <summary>
+            Defines a rectangular bounds across a UV map.
+            </summary>
+            <remarks>
+            If the bounds extends backwards, the texture will be reversed when applied.
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.UVBounds.#ctor(UnityEngine.Vector2,UnityEngine.Vector2)">
+            <summary>
+            Constructor taking the bounds
+            </summary>
+        </member>
+        <member name="F:DinoFracture.UVBounds.Start">
+            <summary>
+            Start UV coordinates. Expected to be in the range [0..1]
+            </summary>
+        </member>
+        <member name="F:DinoFracture.UVBounds.Size">
+            <summary>
+            UV coordinate size (End - Start)
+            </summary>
+        </member>
+        <member name="T:DinoFracture.FractureDetails">
+            <summary>
+            Basic information for any sort of mesh fragmentation.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.Mesh">
+            <summary>
+            The mesh to fracture.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.MeshScale">
+            <summary>
+            The scale of the mesh's game object.  The meshes of fracture
+            pieces will be scaled by this amount to allow their game object's
+            scales to be one.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.UVScale">
+            <summary>
+            Scaling algorithm used on triangles produced during the fracture.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.UVBounds">
+            <summary>
+            Final 'inside' triangles will be remapped to be within this range after
+            the UV scale is applied.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.IssueResolution">
+            <summary>
+            How to deal with potentially poorly generated pieces.
+            </summary>
+            <remarks>
+            Note: Any generated mesh with zero triangles is automatically removed.
+            </remarks>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.Asynchronous">
+            <summary>
+            If true, fracturing is done on a background thread and results may not be
+            ready by the time FractureBuilder.Fracture() finishes.  If false,
+            fracturing is guaranteed to be done by the time FractureBuilder.Fracture()
+            finishes.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.InsideMaterialIndex">
+            <summary>
+            The material / sub-mesh index that newly formed triangles should be put in.
+            </summary>
+            <remarks>
+            Specify -1 to put at the end of the list.
+            </remarks>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.SeparateDisjointPieces">
+            <summary>
+            If true, a final pass will be done to separate out meshes that are not
+            physically connected. This can only happen when the mesh has concave parts.
+            </summary>
+            <remarks>
+            This process can be slow. It is recommended to be off for runtime fractures
+            unless there is a good chance of disjoint pieces.
+            </remarks>
+        </member>
+        <member name="F:DinoFracture.FractureDetails.Validity">
+            <summary>
+            Highly recommended to call 
+            </summary>
+        </member>
+        <member name="P:DinoFracture.FractureDetails.FractureFrame">
+            <summary>
+            The frame the fracture started on. Can be used
+            to group separate fractures that should be treated
+            as one.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FractureDetails.IsValid">
+            <summary>
+            Returns true if the details are filled in correctly, false otherwise.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DinoFracture.SizeSpace">
+            <summary>
+            The space used to determine the shatter fracture planes bounds.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.SizeSpace.RelativeToBounds">
+            <summary>
+            The size value is a percentage relative to the object's bounds.
+            Use a value [0..1]
+            </summary>
+        </member>
+        <member name="F:DinoFracture.SizeSpace.WorldSpace">
+            <summary>
+            The size value is in world space units.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.Size">
+            <summary>
+            Structure that defines the bounds of the shatter fracture planes.
+            
+            If Value is set to 0, the bounds are set to the mesh's bounds.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.Size.Space">
+            <summary>
+            The space Value is specified in.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.Size.Value">
+            <summary>
+            The size of the bounds in the specified space.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Size.GetWorldSpaceSize(UnityEngine.Vector3)">
+            <summary>
+            Returns the bounds size in world space units.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.ShatterDetails">
+            <summary>
+            Required information needed by the engine to produce a fracture
+            </summary>
+        </member>
+        <member name="F:DinoFracture.ShatterDetails.NumPieces">
+            <summary>
+            The number of new pieces to produce per iteration.  The total number
+            of pieces produced by this fracture will be NumPieces ^ NumIterations.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.ShatterDetails.NumIterations">
+            <summary>
+            The number of fracture iterations.  The total number of pieces produced
+            by this fracture will be NumPieces ^ NumIterations.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.ShatterDetails.EvenlySizedPieces">
+            <summary>
+            If true, the engine will attempt to make all the randomly generated pieces
+            roughly the same size. This adds a little processing time to the fracture.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.ShatterDetails.FractureCenter">
+            <summary>
+            The center of the fracture.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.ShatterDetails.FractureSize">
+            <summary>
+            The bounds for the generated shatter fracture planes. If 0 sized, the
+            bounds of the mesh are used.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.ShatterDetails.RandomSeed">
+            <summary>
+            The random seed to use when initiating the fracture. If set to zero, then
+            the system clock will be used to create a random seed.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.ShatterDetails.IsValid">
+            <summary>
+            Returns true if the details are filled in correctly, false otherwise.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DinoFracture.SliceDetails">
+            <summary>
+            Required information needed by the engine to slice a mesh
+            </summary>
+        </member>
+        <member name="F:DinoFracture.SliceDetails.SlicingPlanes">
+            <summary>
+            User defined slicing planes.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.SliceDetails.IsValid">
+            <summary>
+            Returns true if the details are filled in correctly, false otherwise.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DinoFracture.FracturedMeshResultFlags">
+            <summary>
+            Additional flags describing the generated fracture mesh.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMeshResultFlags.NoIssues">
+            <summary>
+            Everything is okay
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMeshResultFlags.SmallVertexCount">
+            <summary>
+            There is a substantially small number of
+            vertices in this mesh. This can cause problems
+            when generating a mesh collider.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMeshResultFlags.ZeroVolume">
+            <summary>
+            All vertices on the mesh are coplanar and cannot
+            be used for creating a convex hull with a mesh collider.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.FracturedMesh">
+            <summary>
+            An individual fracture piece's geometry
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMesh.Mesh">
+            <summary>
+            The generated Unity mesh
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMesh.Flags">
+            <summary>
+            Additional information about the generated result.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMesh.Offset">
+            <summary>
+            The offset from the origin of the
+            original mesh to the center of this piece.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMesh.EmptyTriangleCount">
+            <summary>
+            The number of materials that have no triangles and have been removed.
+            </summary>
+        </member>
+        <member name="F:DinoFracture.FracturedMesh.EmptyTriangles">
+            <summary>
+            A true for each material from the original mesh that now have
+            zero triangles and have been removed from the mesh.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.AsyncFractureOperation">
+            <summary>
+            Tracks completion and returns the results of a fragmentation operation.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncFractureOperation.Details">
+            <summary>
+            The original details passed into the operation
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncFractureOperation.Result">
+            <summary>
+            The result of the fracture.  This is not set until
+            IsComplete is true.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncFractureOperation.IsComplete">
+            <summary>
+            True if the fracture has completed, false otherwise.
+            If this is a synchronous fracture, this value will
+            always be true by the end of the fracture call.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncFractureOperation.ErrorDuringFracture">
+            <summary>
+            If true, results may be empty or not completely valid.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncFractureOperation.ProgressPercent">
+            <summary>
+            A number [0..1] denoting the completion percentage of the fracture.
+            Computed by dividing <see cref="P:DinoFracture.AsyncFractureOperation.CompletedOperationCount"/> by <see cref="P:DinoFracture.AsyncFractureOperation.TotalOperationCount"/>.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncFractureOperation.CompletedOperationCount">
+            <summary>
+            The number of completed operations / segments in this fracture.
+            The percent complete is this value divided by <see cref="P:DinoFracture.AsyncFractureOperation.TotalOperationCount"/>.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncFractureOperation.TotalOperationCount">
+            <summary>
+            The total number of operations / segments in this fracture.
+            The percent complete is <see cref="P:DinoFracture.AsyncFractureOperation.CompletedOperationCount"/> divided by this number.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.AsyncFractureOperation.Wait(System.Int32)">
+            <summary>
+            Wait on the fracture to complete
+            </summary>
+            <param name="msTimeout">Max time to wait.  0 to not wait, -1 to wait forever.</param>
+        </member>
+        <member name="M:DinoFracture.AsyncFractureOperation.SetComplete">
+            <summary>
+            Marks this operation as completed
+            </summary>
+        </member>
+        <member name="T:DinoFracture.AsyncShatterOperation">
+            <summary>
+            Tracks completion and returns the results of a shatter.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncShatterOperation.Details">
+            <summary>
+            The original details passed into the operation
+            </summary>
+        </member>
+        <member name="T:DinoFracture.AsyncSliceOperation">
+            <summary>
+            Tracks completion and returns the results of a slice.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.AsyncSliceOperation.Details">
+            <summary>
+            The original details passed into the operation
+            </summary>
+        </member>
+        <member name="T:DinoFracture.FractureBuilder">
+            <summary>
+            Entry point to create fracture pieces from a mesh
+            </summary>
+        </member>
+        <member name="P:DinoFracture.FractureBuilder.DisableMultithreading">
+            <summary>
+            If set to true, multithreading will be disabled completely.
+            Normally it is enabled, even for synch fractures. But it
+            needs to be disabled on platforms that don't support threads.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FractureBuilder.ValidateMesh(UnityEngine.Mesh,DinoFracture.MeshTopologyError@)">
+            <summary>
+            Checks a mesh for topology errors.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FractureBuilder.GetMeshEdgeErrors(UnityEngine.GameObject,UnityEngine.Mesh)">
+            <summary>
+            Returns a list of edges that have mesh topology problems.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FractureBuilder.Shatter(DinoFracture.ShatterDetails)">
+            <summary>
+            Start a shatter operation
+            </summary>
+            <param name="details">Details of the operation</param>
+            <returns>A wait-able object that tracks the result of the operation</returns>
+        </member>
+        <member name="M:DinoFracture.FractureBuilder.Slice(DinoFracture.SliceDetails)">
+            <summary>
+            Start a slice operation
+            </summary>
+            <param name="details">Details of the operation</param>
+            <returns>A waitable object that tracks the result of the operation</returns>
+        </member>
+        <member name="T:DinoFracture.FractureEngineBase">
+            <summary>
+            Base class for the fracture engine.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.FractureEngineBase.Instance">
+            <summary>
+            Internal instance
+            </summary>
+        </member>
+        <member name="P:DinoFracture.FractureEngineBase.ForceSynchronousPreFractureInEditor">
+            <summary>
+            If true, pre-fracturing in the editor will always be synchronous.
+            </summary>
+            <remarks>
+            This is mainly used for debugging purposes.
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.FractureEngineBase.ClearCachedFractureData">
+            <summary>
+            During both slicing and shattering, temporary data is created
+            and cached to greatly improve future fracture performance.
+            
+            Calling this method releases that temporary data back to be
+            reclaimed by the GC.
+            </summary>
+            <remarks>
+            Calling this method may cause a large GC spike soon after. It
+            is recommended to call this during 'downtime' in the game, such
+            as during level load.
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.FractureEngineBase.Update">
+            <summary>
+            Update
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FractureEngineBase.RunOnMainThread(System.Action)">
+            <summary>
+            Run delegate on main thread
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="T:DinoFracture.FractureResult">
+            <summary>
+            The result of a fracture.
+            </summary>
+        </member>
+        <member name="P:DinoFracture.FractureResult.EntireMeshBounds">
+            <summary>
+            Bounds of the original mesh, in local space
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FractureResult.GetMeshes">
+            <summary>
+            Returns a list of pieces produced by the fracture
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DinoFracture.LogLevel">
+            <summary>
+            Logging severity values
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.Statistic">
+            <summary>
+            Performance, timings, etc
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.Debug">
+            <summary>
+            Internal verification checks
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.Info">
+            <summary>
+            General information
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.Warning">
+            <summary>
+            Non-fatal error containing detailed information
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.Error">
+            <summary>
+            Fatal error containing detailed information
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.UserDisplayedInfo">
+            <summary>
+            Information summary message in user language 
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.UserDisplayedWarning">
+            <summary>
+            Information summary message in user language 
+            </summary>
+        </member>
+        <member name="F:DinoFracture.LogLevel.UserDisplayedError">
+            <summary>
+            Fatal error summary in user language
+            </summary>
+        </member>
+        <member name="T:DinoFracture.LogHandler">
+            <summary>
+            User-specified handler to override the default logging behavior.
+            </summary>
+            <param name="level"></param>
+            <param name="message"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:DinoFracture.Logger">
+            <summary>
+            DinoFracture logging class
+            </summary>
+        </member>
+        <member name="P:DinoFracture.Logger.UserLogHandler">
+            <summary>
+            User set value to override logging output
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Logger.Log(DinoFracture.LogLevel,System.String,UnityEngine.Object)">
+            <summary>
+            Writes a log string to the user log handler if set or directly
+            to Unity's output window if the user handler is not set.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Double3.Cross(DinoFracture.Double3@,DinoFracture.Double3@)">
+            <summary>
+            Cross product, right hand rule
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Double3.ToList(UnityEngine.Vector3[])">
+            <remarks>
+            The returned array should be released / disposed.
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.MathUtil.GetTValueAlongLine(DinoFracture.Double2@,DinoFracture.Double2@,System.Double,DinoFracture.Double2@)">
+            <remarks>
+            It is assumed pt is already known to be on the line
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.MathUtil.GetTValueAlongLine(DinoFracture.Double3@,DinoFracture.Double3@,System.Double,DinoFracture.Double3@)">
+            <remarks>
+            It is assumed pt is already known to be on the line
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.Mesh.Components.Triangle.SlicedTriangle.SetVertices(DinoFracture.MeshVertexInstance@,DinoFracture.MeshVertexInstance@,DinoFracture.MeshVertexInstance@,DinoFracture.MeshVertexInstance@,DinoFracture.MeshVertexInstance@,DinoFracture.MeshVertexInstance@,System.Int32@,System.Boolean@,System.Boolean@,System.Boolean@)">
+            <summary>
+            Vertices are passed in triangle order. We will sort them in outcast order.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.Mesh.MeshTopologyInfo.VertexPositionToMeshGroupMap">
+            <summary>
+            Vertex position to working mesh group id
+            </summary>
+        </member>
+        <member name="T:DinoFracture.Mesh.MeshTopologyInfo.VertexPositionToDegenerateVertexMap">
+            <summary>
+            Vertex position to degenerate vertex map
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FracturePiece.GetTweenedVertexData(DinoFracture.Double3@,DinoFracture.FractureVertex@,DinoFracture.FractureVertex@,System.Double,DinoFracture.FractureVertex@)">
+            <summary>
+            Vertex position is passed in explicitly so that we don't
+            compute it off by a tiny bit due to floating point errors. This
+            ensures the final mesh will be air tight.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FracturePiece.GetTweenedVertexData(DinoFracture.Double3@,System.Int32,System.Int32,System.Int32,DinoFracture.Double3@,DinoFracture.FractureVertex@)">
+            <summary>
+            Vertex position is passed in explicitly so that we don't
+            compute it off by a tiny bit due to floating point errors. This
+            ensures the final mesh will be air tight.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.FracturePiece.DoesPlaneIntersectMesh(DinoFracture.Plane@)">
+            <remarks>
+            It is expected that the bounds has been calculated and is
+            up-to-date before calling this method.
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.OperationData.FilterMergedVertMaps">
+            <summary>
+            If a chain of merged verts starts with one at the end
+            of a loop, reverse the chain so we merge into the loop end.
+            This will prevent us from shortening the loop.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.OperationData.ReplaceNextLoopVertex(DinoFracture.VertexIdAndOperationId@,DinoFracture.VertexIdAndOperationId)">
+            <remarks>
+            It is assumed that the current loop vert exists and has exactly one next connection
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.OperationData.ReplacePrevLoopVertex(DinoFracture.VertexIdAndOperationId@,DinoFracture.VertexIdAndOperationId)">
+            <remarks>
+            It is assumed that the current loop vert exists and has exactly one next connection
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.OperationData.MergeLoopVertexBackwards(DinoFracture.Mesh.Components.Vertex.LoopVertex@)">
+            <summary>
+            new {- old
+            </summary>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.OperationData.MergeLoopVertexConnectionForward(DinoFracture.Mesh.Components.Vertex.LoopVertex@)">
+            <summary>
+            old -} new
+            </summary>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.OperationData.MarkForMeshRemoval(DinoFracture.VertexId)">
+            <returns>True if the vertex should be removed. False otherwise</returns>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.ReplaceNextLoopVertex(DinoFracture.VertexIdAndOperationId@,DinoFracture.VertexIdAndOperationId)">
+            <remarks>
+            It is assumed that the current loop vert exists and has exactly one next connection
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.ReplacePrevLoopVertex(DinoFracture.VertexIdAndOperationId@,DinoFracture.VertexIdAndOperationId)">
+            <remarks>
+            It is assumed that the current loop vert exists and has exactly one next connection
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.GetAllLoopVerticesForVertex(DinoFracture.VertexId@)">
+            <summary>
+            Dispose / Release array after use
+            </summary>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.ForceConnectSlicedLoopVertices(DinoFracture.VertexIdAndOperationId@,DinoFracture.VertexIdAndOperationId@)">
+            <summary>
+            Incoming verts will be from some previously plane (operation). We want
+            to connect clipped verts in this operation for lookup against new open loops.
+            </summary>
+            <remarks>
+            Sometimes the clipped loop verts are already connected when we are merging
+            cut loops.
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.VertexCollection.GetAdjustedVertexIndex(System.Int32)">
+            <summary>
+            Accounts for removed indices
+            </summary>
+        </member>
+        <member name="M:DinoFracture.VertexLoop.MergeLoop(System.Int32,DinoFracture.VertexLoop,System.Int32,System.Int32)">
+            <returns>
+            The number of vertices we've added to this loop
+            </returns>
+        </member>
+        <member name="M:DinoFracture.VertexLoop.ReplaceVertex(System.Int32,DinoFracture.VertexIdAndOperationId@)">
+            <summary>
+            This method does no validation and can be considered dangerous if not used carefully
+            </summary>
+        </member>
+        <member name="M:DinoFracture.VertexLoop.SetOperationId(System.Int32)">
+            <summary>
+            The caller must ensure that all vertices have the new opId first
+            </summary>
+        </member>
+        <member name="M:DinoFracture.VertexLoopCollection.GetLoopsByOperationId(System.Int32)">
+            <remarks>
+            Release / dispose of the array after use
+            </remarks>
+        </member>
+        <member name="M:DinoFracture.PoolItemExtensions.ReleaseAndClear``2(System.Collections.Generic.IList{``0})">
+            <summary>
+            Special overload for releasing a whole collection at once. This can prevent
+            situations where an item can be removed while iterating through a collection
+            with a duplicate item. Such situations will clear the item leaving it in a state
+            where it is both inside and outside the pool.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Operations.Cleaning.DegenerateFaceRemover.GatherAllDegenerateTriangles">
+            <summary>
+            Gathers and groups all degenerate triangles by those that lie on the same line.
+            
+            Note: Just because the triangles lie on the same line does not mean they are
+            part of the same line. Ex: two separate window sills edges
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Operations.Cleaning.DegenerateFaceRemover.GatherAllTouchingNonDegenerateEdges">
+            <summary>
+            A non degenerate edge belongs to a non degenerate
+            triangle that shares at least one vertex with a degenerate
+            triangle. At most one vertex of the edge can touch a
+            degenerate triangle.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Operations.Cleaning.DegenerateFaceRemover.FormNonDegenerateEdgeConnections">
+            <summary>
+            This creates partial well-formed loops from
+            triangles that are touching a degenerate triangle.
+            
+            We will use this outline and combine it with one
+            or more degenerate lines to form complete loops
+            to retriangulate.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Operations.Clipping.MeshSlicer.SliceTriangle(DinoFracture.TriangleId@)">
+            <summary>
+            Incoming v0-2 are in random triangle order
+            </summary>
+        </member>
+        <member name="T:DinoFracture.Operations.Clipping.TriangleClipper">
+            <summary>
+            Takes a list of sliced triangles and cuts them by
+            forming new vertices and shifting vertex positions.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Operations.Filling.SeidelTriangulation.AddContour(DinoFracture.VertexLoop)">
+            <summary>
+            </summary>
+            <param name="contour">Points can be CW or CCW</param>
+        </member>
+        <member name="M:DinoFracture.Operations.Filling.TrapezoidGraphNode.GetAllTrapezoids(System.Collections.Generic.List{DinoFracture.Operations.Filling.TrapezoidGraphNode})">
+            <summary>
+            Should only be called after all contours have been added
+            </summary>
+            <param name="trapezoids"></param>
+        </member>
+        <member name="M:DinoFracture.Operations.Filling.TrapezoidGraph.AddContours(DinoFracture.Operations.Context,DinoFracture.Operations.Filling.ContourList,System.Int32,System.Int32)">
+            <summary>
+            </summary>
+            <param name="context"></param>
+            <param name="contours">Verts in contours can be CW or CCW</param>
+            <param name="startIdx">Inclusive</param>
+            <param name="endIdx">Exclusive</param>
+        </member>
+        <member name="M:DinoFracture.Operations.Filling.TrapezoidGraph.GetMonotoneMountainVerts(System.Collections.Generic.HashSet{DinoFracture.Operations.Filling.MonotoneMountainEdge})">
+            <summary>
+            Should only be called after all contours have been added
+            </summary>
+        </member>
+        <member name="T:DinoFracture.Operations.Looping.LoopRange">
+            <summary>
+            Start may be greater than end.
+            Start and end are inclusive.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.Operations.Looping.VertexLoopSlicer.JoinLoopParts(DinoFracture.DynamicArray{DinoFracture.Operations.Looping.SlicedLoopInfo})">
+            <summary>
+            Joins both segments formed by a single loop cut multiple times
+            and cut holes that were within a solid loop.
+            </summary>
+        </member>
+        <member name="T:DinoFracture.Operations.Looping.VertexReducer">
+            <summary>
+            Removes close colinear verts from loops
+            </summary>
+        </member>
+        <member name="M:DinoFracture.MeshData.CheckCulled(DinoFracture.Plane@)">
+            <summary>
+            Does a cull check and sets the mesh cull flag. Returns the culled state.
+            </summary>
+            <param name="plane"></param>
+            <returns>True if the mesh is culled, false otherwise</returns>
+        </member>
+        <member name="M:DinoFracture.ShatterTask.CreateNewRandom">
+            <summary>
+            Each slice task gets its own random object so that
+            we get consistent results, even when fracturing async.
+            </summary>
+        </member>
+        <member name="M:DinoFracture.SliceOperationTask.CreateNewRandom">
+            <summary>
+            Each slice task gets its own random object so that
+            we get consistent results, even when fracturing async.
+            </summary>
+        </member>
+    </members>
+</doc>

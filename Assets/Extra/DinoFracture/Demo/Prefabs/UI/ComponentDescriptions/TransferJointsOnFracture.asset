@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30cca6d0cb6195d408af6a571b659f87, type: 3}
+  m_Name: TransferJointsOnFracture
+  m_EditorClassIdentifier: 
+  Name: TransferJointsOnFracture
+  Description: 'The fracture pieces generated from fracturing an object with this
+    script will attempt to join the joint that was on this object.
+
+
+    An individual fractured piece will only attach if the collider on the piece is
+    within a specified distance to the joint''s anchor.
+
+
+    All joint properties are automatically copied to the resulting pieces. The "Fracture
+    Template" does not need a joint component on it. One of the correct type will
+    automatically be added.'

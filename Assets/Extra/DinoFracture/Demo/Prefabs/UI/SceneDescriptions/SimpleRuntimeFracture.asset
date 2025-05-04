@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4a8bc3343c1f3418ec3576fe652672, type: 3}
+  m_Name: SimpleRuntimeFracture
+  m_EditorClassIdentifier: 
+  Title: Simple Runtime Shatter
+  Description: 'A glass pane game object with a mesh filter, renderer, and collider
+    has added RuntimeFracturedGeometry and FractureOnCollision components.
+
+
+    Upon collision, the glass pane is randomly shattered uniformly at runtime.
+
+
+    Fracturing occurs synchronously. That is, the game thread is halted while the
+    fracture engine generates the pieces.'
+  Scripts:
+  - {fileID: 11400000, guid: 466cd2689c868eb4ab14df99e87b514c, type: 2}
+  - {fileID: 11400000, guid: 01e21e51c6d6aae45983740f8d6cc87b, type: 2}
+  - {fileID: 11400000, guid: 9c20bad5a44335447b410151f26945b6, type: 2}

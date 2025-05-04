@@ -1,0 +1,6 @@
+Inside the FImpossible Creations/Editor directory, are contained all Editor only scripts.
+After importing different plugins, you will find here new categorized editor directories like:
+Plugins - Editor - Animating
+Plugins - Editor - Level Design
+Plugins - Editor - Other
+Plugins - Editor - Shared

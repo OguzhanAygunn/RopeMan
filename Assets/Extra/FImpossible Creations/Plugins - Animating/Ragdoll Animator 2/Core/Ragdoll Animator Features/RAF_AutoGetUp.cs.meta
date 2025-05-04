@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: f6d02f2c3794aed4ba7b84348e0ce3c7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 5a380e2213f13d2498304b2150b95eb8, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 285638
+  packageName: Ragdoll Animator 2
+  packageVersion: 1.0.2
+  assetPath: Assets/FImpossible Creations/Plugins - Animating/Ragdoll Animator 2/Core/Ragdoll
+    Animator Features/RAF_AutoGetUp.cs
+  uploadId: 692739

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4a8bc3343c1f3418ec3576fe652672, type: 3}
+  m_Name: ExplodeOnCollision
+  m_EditorClassIdentifier: 
+  Title: Explode on Collision
+  Description: 'A collision with the explosion trigger button will not only invoke
+    a collision on the truck object, but will also apply explosion forces on the
+    generated pieces when the fracture completes.
+
+
+    The truck has been pre-fractured
+    with 1,024 pieces!'
+  Scripts:
+  - {fileID: 11400000, guid: 8265038bb3b6dcd4fa4ac50f13300e83, type: 2}
+  - {fileID: 11400000, guid: 914cc83a49b7fda48bf7b13b0cd93fa9, type: 2}
+  - {fileID: 11400000, guid: 9c20bad5a44335447b410151f26945b6, type: 2}

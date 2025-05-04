@@ -1,0 +1,260 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb9c12a8c6c949f7af83a3d238359d0, type: 3}
+  m_Name: vFolders Data
+  m_EditorClassIdentifier: 
+  folderDatas_byGuid:
+    keys:
+    - 26ac28be54657448ebf9c52d595fcee5
+    - 98cead3bfe7dc6b4aaca3c7be7a19630
+    - f096b6f5729943946be082b66dbee3fd
+    - 384a316e0abe0814c97b27ed6fe8932e
+    - 2bc74b4579a547f40b8c05948e10ea78
+    - 2075fbd4fc783884daf0410caf80e45d
+    - be6a5fcce08b868489d9a4fb1cc0c12d
+    - aa09e8a6630b24a6bbbf298faaa6a689
+    - 03d5caa35e36d4b83949aed34e29bf38
+    - b97d099a4dd35450386f17b37bbc761e
+    - d5870749148494e808e814857df03c1f
+    - e3127baf0500cb143bd4b6cb3dcb04d7
+    - 5d792a62aec98704e8330f2bde64bff4
+    - daade0d262f83844c97c0e73f0533852
+    - f9c507845bd4e0445acf0cad272e4a9f
+    - fca7751e4a2dbca43bb58d9f88bf0110
+    - 6e8f738b9c3a65c469161569de45baef
+    - 890987d0dddf1c243849019ff2b774fd
+    - 894614a489a2d0e4ba4ad679e9717b80
+    - df2e840c740712f4ba23dd7b73b68716
+    - 1fbb4921718771f47ade72cd4a62cc1e
+    - 898885d6f9afbef458fa668953d67e97
+    - 403ce58e69d06194a8209ea356de2cff
+    - 68a4dcb73362c4443b48187b567177b9
+    - 2f76d66fafcf1f844830cce41dc3dc7f
+    - 6542b3763b8eb5045989be480649636b
+    - 0ab7977278e4a704d8b7fe945ceca60e
+    - 353e7f97242e4964d8140edee06fa2bd
+    - 01d228e096164054cba9bd5be616904c
+    - 259afbba6688d1b47890109e593b729f
+    - 080014903f05dcd458b663e97747340e
+    - a6ddff70eeb321049a1c1d174aeff7f8
+    - af47f48b160308c4c9ac0f9674be56e2
+    - bc5f82f67e21e7348a57cace68d75e44
+    - 26b0d7da0139c7c4c95ee693157b611c
+    - c46a1526fc4e0014d81a7b6748fff94a
+    - e6a76027fe4428d43903b8b5ba71206d
+    - 1530f5b8fca68654fa0f5a0c19bc2748
+    - cffd14869941b594a954888ea1472cdf
+    - a739f6660eb763747822c188b6b16b70
+    - dcaa3e5cdc034e34fba910797cced6fb
+    - a1faba6956a368a4fb019d6d31004b9e
+    - f8882c9303ebcaf40ba2415cc86d2890
+    - 6f74116bb4463ef44b3767ea2aea27dc
+    - 2ada17c1f13fde746836845833646cef
+    - db07029e5fad4f34bb4c837e9b5a5079
+    - a2e67d95159fdfd4fbca2a6526b8b4e7
+    - 10adf36d6f8c20d4a827788ecc492ca9
+    - e4222b1fad695b942ba2ae8538b5ecfd
+    - cbacafc6049480940920b4eb08bbb200
+    - 37e6135391c5c4a4696ca7cddc08f4d4
+    - 360f3779ec668b64caff8a27270fca94
+    - 441206142dbf8db429db4890e7527943
+    - f4894e71c33a0db46b66b6654fbec46c
+    - c0a9b61877e0edb46b2297a452c02b16
+    - 8f16b76bfbad3c04b9de0b961469d1c7
+    - 92e9c6d8412eed3489abaaa07aafdf01
+    - b042bd08c8ce57e4c8219ac879806363
+    - ee09ad635ab5a6244a990b6bcd623492
+    - 8b68e6133b1ed9541a001f0209c30d58
+    - 68013cd8fe498b241a9283b15573929c
+    - b78f8e2a484bdd44297a92d97260fdbb
+    - 017ff01219fa0de48a388b74c056b0e0
+    - 4e19fb394a35f224481872d99bb6680b
+    - 78fe80199bd47364e9a32f3f3a12db84
+    - 6ac32563ca2f91c42a477e43939d7834
+    - dab058c2fef4d884db2141f51e6f94de
+    - 59bd245bcb8a596469777fdf99a350a8
+    - eb17f0395fe8ba44490bbb7c16170b75
+    - 124f9e7fcd5e5c645bab846d294513e2
+    - 024e9faee34292245ae7a87fe7515082
+    - e5c17f9b2d6621640b25851948c0a45d
+    - 69a581203a4331b4ca150fe1cbf567a3
+    - 60782593eff69a0489b79f8d312f938d
+    - 1cfe7c6a1da1b604597259e338659bf1
+    - 45968d509143dca4f9a848ee77aec705
+    - d20afbac5b1b0bf4c956fd51816f1b49
+    - 938f45fa5fd69f84589b3cce492816ab
+    - f6e98f1879e0c2f43864948ffd4df472
+    - f052b84138e6adf4f8548d68b71ae3b9
+    - 631dd4aae5e1a654fa82791532f95487
+    values:
+    - colorIndex: 7
+      iconNameOrGuid: 
+    - colorIndex: 4
+      iconNameOrGuid: 
+    - colorIndex: 4
+      iconNameOrGuid: 
+    - colorIndex: 10
+      iconNameOrGuid: 
+    - colorIndex: 10
+      iconNameOrGuid: Prefab Icon
+    - colorIndex: 0
+      iconNameOrGuid: SceneAsset Icon
+    - colorIndex: 0
+      iconNameOrGuid: Material Icon
+    - colorIndex: 0
+      iconNameOrGuid: Prefab Icon
+    - colorIndex: 0
+      iconNameOrGuid: PrefabModel Icon
+    - colorIndex: 0
+      iconNameOrGuid: Texture Icon
+    - colorIndex: 0
+      iconNameOrGuid: Material Icon
+    - colorIndex: 0
+      iconNameOrGuid: RawImage Icon
+    - colorIndex: 0
+      iconNameOrGuid: RawImage Icon
+    - colorIndex: 7
+      iconNameOrGuid: 
+    - colorIndex: 0
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 0
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 0
+      iconNameOrGuid: RawImage Icon
+    - colorIndex: 0
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 0
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 0
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 6
+      iconNameOrGuid: 
+    - colorIndex: 10
+      iconNameOrGuid: LightProbes Icon
+    - colorIndex: 10
+      iconNameOrGuid: LightProbes Icon
+    - colorIndex: 9
+      iconNameOrGuid: 
+    - colorIndex: 0
+      iconNameOrGuid: Settings Icon
+    - colorIndex: 10
+      iconNameOrGuid: LightProbes Icon
+    - colorIndex: 10
+      iconNameOrGuid: LightProbes Icon
+    - colorIndex: 0
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 0
+      iconNameOrGuid: Material Icon
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 4
+      iconNameOrGuid: cs Script Icon
+    - colorIndex: 4
+      iconNameOrGuid: cs Script Icon
+    - colorIndex: 7
+      iconNameOrGuid: RawImage Icon
+    - colorIndex: 1
+      iconNameOrGuid: AssemblyDefinitionAsset Icon
+    - colorIndex: 10
+      iconNameOrGuid: AssemblyDefinitionAsset Icon
+    - colorIndex: 5
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 3
+      iconNameOrGuid: SceneAsset Icon
+    - colorIndex: 2
+      iconNameOrGuid: AssemblyDefinitionAsset Icon
+    - colorIndex: 8
+      iconNameOrGuid: 
+    - colorIndex: 4
+      iconNameOrGuid: Settings Icon
+    - colorIndex: 7
+      iconNameOrGuid: TextAsset Icon
+    - colorIndex: 4
+      iconNameOrGuid: SceneAsset Icon
+    - colorIndex: 3
+      iconNameOrGuid: Rigidbody Icon
+    - colorIndex: 8
+      iconNameOrGuid: ComputeShader Icon
+    - colorIndex: 5
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 6
+      iconNameOrGuid: Prefab Icon
+    - colorIndex: 10
+      iconNameOrGuid: cs Script Icon
+    - colorIndex: 4
+      iconNameOrGuid: 
+    - colorIndex: 3
+      iconNameOrGuid: 
+    - colorIndex: 8
+      iconNameOrGuid: 
+    - colorIndex: 5
+      iconNameOrGuid: 
+    - colorIndex: 10
+      iconNameOrGuid: 
+    - colorIndex: 2
+      iconNameOrGuid: 
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 3
+      iconNameOrGuid: 
+    - colorIndex: 4
+      iconNameOrGuid: 
+    - colorIndex: 7
+      iconNameOrGuid: 
+    - colorIndex: 10
+      iconNameOrGuid: 
+    - colorIndex: 4
+      iconNameOrGuid: Prefab Icon
+    - colorIndex: 7
+      iconNameOrGuid: Prefab Icon
+    - colorIndex: 1
+      iconNameOrGuid: Prefab Icon
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 1
+      iconNameOrGuid: Material Icon
+    - colorIndex: 2
+      iconNameOrGuid: PrefabModel Icon
+    - colorIndex: 3
+      iconNameOrGuid: Prefab Icon
+    - colorIndex: 4
+      iconNameOrGuid: SceneAsset Icon
+    - colorIndex: 2
+      iconNameOrGuid: Texture Icon
+    - colorIndex: 7
+      iconNameOrGuid: Shader Icon
+    - colorIndex: 8
+      iconNameOrGuid: ComputeShader Icon
+    - colorIndex: 9
+      iconNameOrGuid: ScriptableObject Icon
+    - colorIndex: 10
+      iconNameOrGuid: Cubemap Icon
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 1
+      iconNameOrGuid: Material Icon
+    - colorIndex: 4
+      iconNameOrGuid: 
+    - colorIndex: 7
+      iconNameOrGuid: TextAsset Icon
+    - colorIndex: 5
+      iconNameOrGuid: Mesh Icon
+    - colorIndex: 1
+      iconNameOrGuid: 
+    - colorIndex: 1
+      iconNameOrGuid: Settings Icon
+    - colorIndex: 3
+      iconNameOrGuid: 
+    - colorIndex: 2
+      iconNameOrGuid: 

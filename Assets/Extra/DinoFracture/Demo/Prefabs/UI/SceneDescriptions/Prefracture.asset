@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb4a8bc3343c1f3418ec3576fe652672, type: 3}
+  m_Name: Prefracture
+  m_EditorClassIdentifier: 
+  Title: Pre-fractured Mesh
+  Description: 'This column has a PreFracturedGeometry component attached. This allows
+    the column to be fractured in the editor, before the game has even started.
+
+
+    The major benefit to pre-fracturing is performance, especially on low-end devices.
+    The time and memory used to create the pieces does not matter because the pieces
+    are baked into the game. This allows you to fracture with a large number of pieces
+    or use a very complex mesh and have the fracture happen instantly at runtime.
+
+
+    The major downside is that the results are static. Fracturing simply activates
+    pieces already in the scene.
+
+
+    This column has 125 pieces that appear instantly.'
+  Scripts:
+  - {fileID: 11400000, guid: 8265038bb3b6dcd4fa4ac50f13300e83, type: 2}
+  - {fileID: 11400000, guid: 9c20bad5a44335447b410151f26945b6, type: 2}

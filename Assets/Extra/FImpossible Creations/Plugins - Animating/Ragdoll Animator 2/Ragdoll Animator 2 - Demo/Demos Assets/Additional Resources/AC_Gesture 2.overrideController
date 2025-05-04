@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AC_Gesture 2
+  m_Controller: {fileID: 9100000, guid: 267272502011c1640ba215c704afc48f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 6552f53e82c40d14491247babecc87c3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fc888e127325f8e43823a43ac550a4bc, type: 2}

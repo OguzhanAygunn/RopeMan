@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30cca6d0cb6195d408af6a571b659f87, type: 3}
+  m_Name: ChipOnFracture
+  m_EditorClassIdentifier: 
+  Name: ChipOnFracture
+  Description: 'Applying this to a fracturing object will cause fracture pieces outside
+    the fracture position and specified radius to be "glued" together as a if it
+    were a single object. This gives the impression that only a few pieces have been
+    chipped off the original object.
+
+
+    In order for this to function, the FractureGeometry
+    script must have the FractureSize parameter set to something non-zero. Also,
+    the Fracture() overload taking a Vector3 local position should be used (as is
+    the case when using FractureOnCollision).'

@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 79c44b4108800774d9619b6693a056b4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - DemosPackage: {fileID: 102900000, guid: b25fcb167e6d9b14c9071ef6be77f50b, type: 3}
+  - UserManualFile: {fileID: 102900000, guid: 0f51f3f576c4b6c4b98a17ff56d96872, type: 3}
+  - ExtraFeaturesDirectory: {fileID: 102900000, guid: 6818f559e164f384bbe2194e04df252d,
+      type: 3}
+  - AssemblyDefinitions: {fileID: 102900000, guid: b2f5c6417ab11834f975ca77353dc2bb,
+      type: 3}
+  - AssemblyDefinitionsAll: {fileID: 102900000, guid: 1b8d36599035b4548acb3ac78e2106d2,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
